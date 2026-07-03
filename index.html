@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌟 A Special Surprise 🌟</title>
+<title>A Little Surprise 🎁</title>
 
 <style>
 *{
@@ -14,17 +14,18 @@
 }
 
 body{
-    overflow:hidden;
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(-45deg,#6dd5fa,#2980b9,#8e44ad,#ff6ec7);
+    overflow:hidden;
+    background:linear-gradient(-45deg,#6dd5fa,#4facfe,#8e44ad,#ff6ec7);
     background-size:400% 400%;
-    animation:bg 12s ease infinite;
+    animation:bgMove 12s ease infinite;
+    padding:20px;
 }
 
-@keyframes bg{
+@keyframes bgMove{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
@@ -32,23 +33,32 @@ body{
 
 .container{
     text-align:center;
+    width:100%;
+    max-width:700px;
     color:white;
 }
 
 h1{
+    font-size:2.2rem;
     margin-bottom:10px;
-    text-shadow:2px 2px 10px black;
+}
+
+.subtitle{
+    font-size:1rem;
+    opacity:.95;
+    margin-bottom:25px;
 }
 
 .gift{
-    font-size:120px;
+    font-size:110px;
     cursor:pointer;
+    display:inline-block;
     animation:bounce 1.5s infinite;
-    transition:.4s;
+    transition:.3s;
 }
 
 .gift:hover{
-    transform:scale(1.2) rotate(10deg);
+    transform:scale(1.15) rotate(8deg);
 }
 
 @keyframes bounce{
@@ -59,51 +69,48 @@ h1{
 
 .card{
     display:none;
-    margin:auto;
-    margin-top:20px;
-    width:700px;
-    max-width:90%;
-    padding:35px;
+    margin-top:25px;
+    padding:30px;
     border-radius:25px;
-    backdrop-filter:blur(20px);
     background:rgba(255,255,255,.18);
-    border:1px solid rgba(255,255,255,.3);
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
-    animation:pop .8s;
+    backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.25);
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    animation:pop .7s ease;
 }
 
 @keyframes pop{
     from{
-        transform:scale(.2);
         opacity:0;
+        transform:scale(.6);
     }
     to{
-        transform:scale(1);
         opacity:1;
+        transform:scale(1);
     }
 }
 
-.message{
-    font-size:21px;
-    line-height:1.8;
-    min-height:270px;
-    white-space:pre-wrap;
+.card h2{
+    color:#fff6a3;
+    margin-bottom:20px;
 }
 
-.highlight{
-    color:#ffe66d;
-    font-weight:bold;
+#message{
+    white-space:pre-wrap;
+    line-height:1.8;
+    font-size:20px;
+    min-height:220px;
 }
 
 button{
     margin-top:25px;
-    padding:14px 35px;
+    padding:14px 28px;
     border:none;
     border-radius:40px;
-    font-size:18px;
     cursor:pointer;
-    color:white;
     background:#ff4f81;
+    color:white;
+    font-size:17px;
     transition:.3s;
 }
 
@@ -111,42 +118,65 @@ button:hover{
     transform:scale(1.08);
 }
 
-.floating{
-    position:absolute;
-    font-size:25px;
-    animation:float linear forwards;
+.float{
+    position:fixed;
+    bottom:-30px;
+    animation:floatUp linear forwards;
+    pointer-events:none;
 }
 
-@keyframes float{
-
-from{
-transform:translateY(0) scale(1);
-opacity:1;
-}
-
-to{
-transform:translateY(-110vh) scale(2);
-opacity:0;
-}
-
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
 }
 
 .confetti{
-position:absolute;
-width:10px;
-height:10px;
-animation:fall linear forwards;
+    position:fixed;
+    width:10px;
+    height:10px;
+    top:-20px;
+    animation:fall linear forwards;
 }
 
 @keyframes fall{
-
-from{
-transform:translateY(-20px) rotate(0deg);
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
 }
 
-to{
-transform:translateY(110vh) rotate(720deg);
-opacity:0;
+/* Mobile */
+@media(max-width:600px){
+
+h1{
+    font-size:1.7rem;
+}
+
+.subtitle{
+    font-size:.95rem;
+}
+
+.gift{
+    font-size:85px;
+}
+
+.card{
+    padding:22px;
+}
+
+#message{
+    font-size:17px;
+    min-height:180px;
+}
+
+button{
+    width:100%;
 }
 
 }
@@ -158,18 +188,16 @@ opacity:0;
 
 <div class="container">
 
-<h1>🎁 I Have Something For You 🎁</h1>
-<p>Click the gift!</p>
+<h1>🎁 A Little Surprise</h1>
+<p class="subtitle">Click the gift below 💙</p>
 
 <div class="gift" id="gift">🎁</div>
 
 <div class="card" id="card">
 
-<h2>🌟 Just For You 🌟</h2>
+<h2>✨ Just for You ✨</h2>
 
-<div id="message" class="message"></div>
-
-<h3 id="quote" style="margin-top:25px;color:#ffe66d;"></h3>
+<div id="message"></div>
 
 <button onclick="celebrate()">Celebrate 🎉</button>
 
@@ -179,44 +207,33 @@ opacity:0;
 
 <script>
 
+const text = `Hey! 😊
+
+Just a little reminder...
+
+✨ You are incredibly talented.
+
+Your creativity, kindness, and hard work make you truly special.
+
+Never stop believing in yourself because you have the power to achieve amazing things.
+
+Keep shining, keep smiling, and keep being YOU.
+
+💙 You're awesome!`;
+
 const gift=document.getElementById("gift");
 const card=document.getElementById("card");
 const message=document.getElementById("message");
 
-const text=`Hey Sonam,
-
-I just wanted to remind you of something...
-
-✨ You are incredibly TALENTED.
-
-You have amazing skills, a brilliant mind, and a heart that never gives up.
-⭐ Keep dreaming.
-⭐ Keep creating.
-⭐ Keep believing.
-And most importantly...
-
-💙 YOU ARE ABSOLUTELY GREAT! 💙`;
-
-const quotes=[
-"🌈 Your talent speaks louder than words.",
-"💖 Never stop believing in yourself.",
-"🚀 You are capable of amazing things.",
-"🌟 The future is brighter because of you.",
-"✨ Keep shining, superstar!",
-"🎉 Great people make great memories.",
-"💙 You're one of a kind!"
-];
-
-gift.onclick=function(){
+gift.onclick=()=>{
 
 gift.style.display="none";
 card.style.display="block";
 
 typeWriter();
+launchConfetti();
 
-setInterval(createFloating,250);
-
-confetti();
+setInterval(createHeart,250);
 
 }
 
@@ -225,64 +242,54 @@ let i=0;
 function typeWriter(){
 
 if(i<text.length){
-
 message.innerHTML+=text.charAt(i);
-
 i++;
-
-setTimeout(typeWriter,30);
-
-}else{
-
-document.getElementById("quote").innerHTML=quotes[Math.floor(Math.random()*quotes.length)];
-
+setTimeout(typeWriter,28);
 }
 
 }
 
-function createFloating(){
+function createHeart(){
 
-const emojis=["💖","✨","🌟","💙","💜","🎉"];
+const emojis=["💙","💖","✨","🌟","💜"];
 
-const e=document.createElement("div");
+const heart=document.createElement("div");
 
-e.className="floating";
+heart.className="float";
 
-e.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+heart.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
 
-e.style.left=Math.random()*100+"vw";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(18+Math.random()*20)+"px";
+heart.style.animationDuration=(4+Math.random()*2)+"s";
 
-e.style.top="100vh";
+document.body.appendChild(heart);
 
-e.style.fontSize=(20+Math.random()*25)+"px";
-
-e.style.animationDuration=(3+Math.random()*3)+"s";
-
-document.body.appendChild(e);
-
-setTimeout(()=>e.remove(),6000);
+setTimeout(()=>{
+heart.remove();
+},6000);
 
 }
 
-function confetti(){
+function launchConfetti(){
 
-const colors=["red","yellow","blue","green","orange","pink","purple","white"];
+const colors=["#ff4f81","#FFD93D","#6BCB77","#4D96FF","#ffffff","#ff9ff3"];
 
-for(let i=0;i<180;i++){
+for(let i=0;i<120;i++){
 
 const c=document.createElement("div");
 
 c.className="confetti";
 
-c.style.background=colors[Math.floor(Math.random()*colors.length)];
-
 c.style.left=Math.random()*100+"vw";
-
-c.style.animationDuration=(2+Math.random()*3)+"s";
+c.style.background=colors[Math.floor(Math.random()*colors.length)];
+c.style.animationDuration=(2+Math.random()*2)+"s";
 
 document.body.appendChild(c);
 
-setTimeout(()=>c.remove(),5000);
+setTimeout(()=>{
+c.remove();
+},4500);
 
 }
 
@@ -290,11 +297,11 @@ setTimeout(()=>c.remove(),5000);
 
 function celebrate(){
 
-confetti();
+launchConfetti();
 
-for(let i=0;i<50;i++) createFloating();
-
-alert("🌟 You are talented.\n\n💙 You are amazing.\n🚀 Keep believing in yourself.\n\nNever stop shining!");
+for(let i=0;i<40;i++){
+setTimeout(createHeart,i*60);
+}
 
 }
 
